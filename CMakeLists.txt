@@ -70,14 +70,20 @@ set_target_properties(libMinHook PROPERTIES PUBLIC_HEADER include/MinHook.h)
 	
 target_include_directories(libMinHook PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
-  $<INSTALL_INTERFACE:${MINHOOK_INSTALL_DESTINATION_BASE}/include> 
+  $<INSTALL_INTERFACE:${INST_DESTINATION}/include> 
 )
 
 add_library( MinHook SHARED
 	dll_resources/MinHook.rc
 	dll_resources/MinHook.def	
 )
-target_link_libraries(MinHook libMinHook)
+target_link_libraries(MinHook PRIVATE libMinHook)
+
+
+target_include_directories(MinHook PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
+  $<INSTALL_INTERFACE:${INST_DESTINATION}/include> 
+)
 
 if(CMAKE_CL_64)
 	set( PLATFORM_SUFFIX x64 )
