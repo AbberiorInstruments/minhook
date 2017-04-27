@@ -17,8 +17,9 @@ if "%1"=="build" GOTO build
 
 :cmake
 
-rd /S /Q %src_dir%-build\VisualStudio14
+echo %src_dir%-build\VisualStudio14
 
+rd /S /Q %src_dir%-build\VisualStudio14	
 mkdir %src_dir%-build
 mkdir %src_dir%-build\VisualStudio14
 mkdir %build32%
@@ -34,12 +35,14 @@ cmake -G "Visual Studio 14 Win64" %options% %src_dir%
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\vsvars32.bat"
 
 cd %build32%
+msbuild ZERO_CHECK.vcxproj /p:Configuration=Debug
 msbuild INSTALL.vcxproj /p:Configuration=Debug
 msbuild INSTALL.vcxproj /p:Configuration=RelWithDebInfo
 
 :build64
 
 cd %build64%
+msbuild ZERO_CHECK.vcxproj /p:Configuration=Debug
 msbuild INSTALL.vcxproj /p:Configuration=Debug
 msbuild INSTALL.vcxproj /p:Configuration=RelWithDebInfo
 
