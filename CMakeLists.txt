@@ -2,8 +2,11 @@
 cmake_minimum_required (VERSION 3.1)
 set(CMAKE_CONFIGURATION_TYPES Debug RelWithDebInfo CACHE TYPE INTERNAL FORCE )
 
-project (MinHook)
-include( BpcPackage.cmake )
+project( MinHook )
+# Switch on BpcPackage
+if( EXISTS "${CMAKE_CURRENT_LIST_DIR}/bpc-package/BpcPackage.cmake" )
+  include( "bpc-package/BpcPackage.cmake" )
+endif()
 
 file( GLOB HDE_SOURCES "src/HDE/*.c" )
 file( GLOB HDE_HEADERS "src/HDE/*.h" )
@@ -55,4 +58,4 @@ set_target_properties( MinHook
 		OUTPUT_NAME MinHook.${PLATFORM_SUFFIX}
 )
 
-BpcInstallPackage( ALL_COMPILERS NAME MinHook VERSION "1.3.3" COMPATIBILITY ExactVersion TARGETS libMinHook MinHook  )
+BpcInstallPackage( NAME MinHook VERSION "1.3.3" COMPATIBILITY ExactVersion TARGETS libMinHook MinHook  )
